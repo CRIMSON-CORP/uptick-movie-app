@@ -3,6 +3,7 @@ import { useCallback, useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import axios from 'src/lib/axios';
 import { MovieAPIData } from 'src/models';
+import { useDebouncedCallback } from 'use-debounce';
 import Container from '../Container';
 import CloseIcon from '../icons/CloseIcon';
 import SearchIcon from '../icons/SearchIcon';
@@ -23,12 +24,14 @@ function SearchBar(): JSX.Element {
   const [filterPageOpen, setFilterPageOpen] = useState(false);
   const [searchResult, setSearchResult] = useState<MovieAPIData[]>([]);
   const [searchLoading, setSearchLoading] = useState<boolean>(false);
+  const [filtredSearchResult, setFiltredSearchResult] = useState<
+    MovieAPIData[]
+  >([]);
 
   const { pathname } = useLocation();
 
-  const onSearchTextChange = useCallback(
+  const debouncedSearch = useDebouncedCallback(
     async (e: React.ChangeEvent<HTMLInputElement>) => {
-      setSearchQuery(e.target.value);
       try {
         setSearchLoading(true);
         const { data } = await axios.get(
@@ -37,6 +40,7 @@ function SearchBar(): JSX.Element {
           }`
         );
         setSearchResult(data.results);
+        setFiltredSearchResult(data.results);
       } catch (error) {
         // eslint-disable-next-line no-console
         console.log(error);
@@ -44,18 +48,33 @@ function SearchBar(): JSX.Element {
         setSearchLoading(false);
       }
     },
-    []
+    1500
   );
 
   const openSearchPage = useCallback(() => setSearchPageOpen(true), []);
+
   const closeSearchPage = useCallback(
     () => setSearchPageOpen(!!searchQuery),
     [searchQuery]
   );
+
   const closeSearch = useCallback(() => {
     setSearchQuery('');
     setSearchPageOpen(false);
   }, []);
+
+  const onSearchTextChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      const { value } = e.target;
+      if (!value) {
+        closeSearch();
+      } else {
+        setSearchQuery(e.target.value);
+        debouncedSearch(e);
+      }
+    },
+    [closeSearch, debouncedSearch]
+  );
 
   useEffect(() => {
     setFilterPageOpen(false);
@@ -91,20 +110,21 @@ function SearchBar(): JSX.Element {
         {(searchQuery || searchPageOpen) && (
           <SearchPage
             key="search"
-            data={searchResult}
             loading={searchLoading}
             searchQuery={searchQuery}
-            searchResult={searchResult}
+            data={filtredSearchResult}
             setFilterPageOpen={setFilterPageOpen}
+            filtredSearchResult={filtredSearchResult}
           />
         )}
         {searchQuery && filterPageOpen && (
           <FilterPage
             key="filter"
             searchQuery={searchQuery}
-            setSearchResult={setSearchResult}
+            searchResult={searchResult}
             setSearchLoading={setSearchLoading}
             setFilterPageOpen={setFilterPageOpen}
+            setFiltredSearchResult={setFiltredSearchResult}
           />
         )}
       </AnimatePresence>

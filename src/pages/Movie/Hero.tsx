@@ -25,18 +25,18 @@ function HeroContent({ data }: { data: DetailMovieAPIData }) {
     overview,
     category,
     popularity,
-    poster_path: posterPath,
-    release_date: releaseDate,
-    vote_average: voteAverage,
+    poster_path,
+    release_date,
+    vote_average,
   } = data;
-  const imageUrl = `https://image.tmdb.org/t/p/w500${posterPath}`;
+  const imageUrl = `https://image.tmdb.org/t/p/w500${poster_path}`;
 
   return (
     <section className="flex md:flex-row flex-col justify-between items-start gap-10 text-white">
       <div className="flex flex-col items-start gap-10">
         <div className="flex text-xs font-light gap-1">
           <Link to="/" className="uppercase white no-underline">
-            {category}
+            home
           </Link>
           /<p className="uppercase">{title}</p>
         </div>
@@ -58,9 +58,9 @@ function HeroContent({ data }: { data: DetailMovieAPIData }) {
             className="h-48 aspect-[1/1.5] object-cover object-center shadow-[0px_10px_30px_rgba(0,0,0,0.4)]"
           />
           <div className="grid grid-cols-2 md:gap-16 gap-10 max-w-xs">
-            <InfoSection title="released" detail={parseInt(releaseDate, 10)} />
+            <InfoSection title="released" detail={parseInt(release_date, 10)} />
             <InfoSection title="category" detail={category} />
-            <InfoSection title="rating" detail={voteAverage} />
+            <InfoSection title="rating" detail={vote_average} />
             <InfoSection title="popularity" detail={popularity} />
           </div>
         </div>
@@ -69,7 +69,7 @@ function HeroContent({ data }: { data: DetailMovieAPIData }) {
           <p className="mt-1">save to list</p>
         </button>
       </div>
-      <div className="movie-details flex flex-col gap-16 max-w-xs">
+      <div className="movie-details flex flex-col gap-16 md:max-w-xs w-full">
         <div className="flex flex-col gap-5">
           <h3 className="uppercase">tagline</h3>
           <p className="font-light">{tagline}</p>

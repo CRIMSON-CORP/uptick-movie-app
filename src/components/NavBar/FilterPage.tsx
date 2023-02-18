@@ -16,9 +16,10 @@ const fadeVariant = {
 
 type FilterPageProps = {
   searchQuery: string;
+  searchResult: MovieAPIData[];
   setSearchLoading: React.Dispatch<React.SetStateAction<boolean>>;
-  setSearchResult: React.Dispatch<React.SetStateAction<MovieAPIData[]>>;
   setFilterPageOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  setFiltredSearchResult: React.Dispatch<React.SetStateAction<MovieAPIData[]>>;
 };
 
 type GenreFilterListProps = {
@@ -83,17 +84,18 @@ function ReleaseYear({ releaseYear, setReleaseYear }: ReleaseYearProps) {
 
 function FilterPage({
   searchQuery,
-  setFilterPageOpen,
-  setSearchResult,
+  searchResult,
   setSearchLoading,
+  setFilterPageOpen,
+  setFiltredSearchResult,
 }: FilterPageProps) {
   const [selectedGenreId, setSelectedGenreId] = useState<number>(0);
   const [releaseYear, setReleaseYear] = useState<string>('');
 
   const applyFilter = useCallback(async () => {
     if (selectedGenreId && !releaseYear) {
-      setSearchResult((prev) => {
-        return prev.filter((movie) =>
+      setFiltredSearchResult(() => {
+        return searchResult.filter((movie) =>
           movie.genre_ids.includes(selectedGenreId)
         );
       });
@@ -105,7 +107,7 @@ function FilterPage({
             import.meta.env.VITE_API_KEY
           }&query=${searchQuery}&year=${releaseYear}`
         );
-        setSearchResult(
+        setFiltredSearchResult(
           selectedGenreId
             ? data?.results?.filter((movie: MovieAPIData) =>
                 movie.genre_ids.includes(selectedGenreId)
@@ -115,24 +117,25 @@ function FilterPage({
       } catch (error) {
         // eslint-disable-next-line no-console
         console.log(error);
-      } finally {
-        setSearchLoading(false);
-        setFilterPageOpen(false);
       }
     }
+    setSearchLoading(false);
+    setFilterPageOpen(false);
   }, [
     releaseYear,
     searchQuery,
+    searchResult,
     selectedGenreId,
     setFilterPageOpen,
+    setFiltredSearchResult,
     setSearchLoading,
-    setSearchResult,
   ]);
 
-  const closeFilter = useCallback(() => {
+  const clearFilter = useCallback(() => {
     setFilterPageOpen(false);
     setSelectedGenreId(0);
-  }, [setFilterPageOpen]);
+    setFiltredSearchResult(searchResult);
+  }, [searchResult, setFilterPageOpen, setFiltredSearchResult]);
 
   return (
     <motion.div
@@ -165,7 +168,7 @@ function FilterPage({
             </button>
             <button
               type="button"
-              onClick={closeFilter}
+              onClick={clearFilter}
               className="text-white bg-transparent border-2 border-white shadow-md rounded-full py-3 px-8 font-medium capitalize tracking-wide"
             >
               clear filter

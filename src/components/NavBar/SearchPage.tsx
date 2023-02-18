@@ -17,7 +17,7 @@ type SearchPageProps = {
   data: MovieAPIData[] | undefined;
   loading: boolean;
   searchQuery: string;
-  searchResult: MovieAPIData[];
+  filtredSearchResult: MovieAPIData[];
   setFilterPageOpen: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
@@ -25,8 +25,8 @@ function SearchPage({
   data,
   loading,
   searchQuery,
-  searchResult,
   setFilterPageOpen,
+  filtredSearchResult,
 }: SearchPageProps) {
   return (
     <motion.div
@@ -39,7 +39,7 @@ function SearchPage({
       <Container className="flex flex-col gap-12">
         <div className="flex justify-between items-center">
           <h2 className="text-5xl">Search Results</h2>
-          {searchResult.length !== 0 && (
+          {(searchQuery || filtredSearchResult.length !== 0) && (
             <button
               type="button"
               onClick={() => setFilterPageOpen(true)}
