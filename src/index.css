@@ -45,6 +45,22 @@
     animation: shimmer 2s infinite;
     content: '';
   }
+
+  .c-t-a {
+    @apply border-[3px] border-white rounded-full flex items-center justify-center gap-4 uppercase px-8 py-3 text-xs font-medium tracking-wide transition-colors duration-200 ease-out;
+  }
+
+  .c-t-a {
+    @apply transition-colors duration-200 ease-out;
+  }
+
+  .c-t-a:hover {
+    @apply bg-white text-black;
+  }
+
+  .c-t-a:hover svg path {
+    @apply fill-black;
+  }
 }
 
 @keyframes shimmer {
