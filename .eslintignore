@@ -1,0 +1,16 @@
+node_modules/
+dist/
+.prettierrc
+.eslintrc.json
+
+# env files
+.env
+.env.local
+.env.example
+
+# Tailwind config files
+tailwind.config.cjs
+postcss.config.cjs
+
+# Vite Config
+vite.config.ts
