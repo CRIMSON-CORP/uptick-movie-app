@@ -4,6 +4,7 @@ import { useLocation } from 'react-router-dom';
 import axios from 'src/lib/axios';
 import { MovieAPIData } from 'src/models';
 import Container from '../Container';
+import CloseIcon from '../icons/CloseIcon';
 import SearchIcon from '../icons/SearchIcon';
 import FilterPage from './FilterPage';
 import SearchPage from './SearchPage';
@@ -51,6 +52,10 @@ function SearchBar(): JSX.Element {
     () => setSearchPageOpen(!!searchQuery),
     [searchQuery]
   );
+  const closeSearch = useCallback(() => {
+    setSearchQuery('');
+    setSearchPageOpen(false);
+  }, []);
 
   useEffect(() => {
     setFilterPageOpen(false);
@@ -69,7 +74,17 @@ function SearchBar(): JSX.Element {
           placeholder="SEARCH CRIM-SCAPE"
           className="bg-transparent border-none outline-none uppercase text-white text-sm w-full font-sans placeholder:text-white"
         />
-        <SearchIcon color="white" size={20} />
+        {searchQuery ? (
+          <button
+            type="button"
+            onClick={closeSearch}
+            className="bg-transparent border-none outline-none cursor-pointer"
+          >
+            <CloseIcon size={20} color="white" />
+          </button>
+        ) : (
+          <SearchIcon color="white" size={20} />
+        )}
         <span className="absolute bg-white w-full h-0.5 -bottom-3" />
       </div>
       <AnimatePresence>

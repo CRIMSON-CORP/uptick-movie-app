@@ -55,7 +55,7 @@ function HeroContent({ data }: { data: DetailMovieAPIData }) {
           <img
             alt={title}
             src={imageUrl}
-            className="h-48 aspect-[1/1.5] object-cover object-center"
+            className="h-48 aspect-[1/1.5] object-cover object-center shadow-[0px_10px_30px_rgba(0,0,0,0.4)]"
           />
           <div className="grid grid-cols-2 md:gap-16 gap-10 max-w-xs">
             <InfoSection title="released" detail={parseInt(releaseDate, 10)} />

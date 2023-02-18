@@ -95,10 +95,12 @@
     @apply content-[''] inset-0 sticky w-full h-full;
   }
 
-  .movie-details::-webkit-scrollbar {
+  .movie-details::-webkit-scrollbar,
+  .search-page::-webkit-scrollbar {
     @apply w-1;
   }
-  .movie-details::-webkit-scrollbar-thumb {
+  .movie-details::-webkit-scrollbar-thumb,
+  .search-page::-webkit-scrollbar-thumb {
     @apply w-1 bg-white rounded-full;
   }
 }

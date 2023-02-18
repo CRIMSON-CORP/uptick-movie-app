@@ -143,7 +143,7 @@ function FilterPage({
       className="bg-[#24224e]/60 backdrop-blur-sm fixed inset-0 w-full h-full pt-[20vh] pb-[10vh] -z-10 text-white overflow-y-scroll"
     >
       <Container className="h-full">
-        <div className="flex flex-col justify-between items-center h-full">
+        <div className="flex flex-col gap-12 justify-between items-center h-full">
           <h2 className="text-5xl">Filter Results</h2>
           <section className="flex flex-col gap-12">
             <GenreFilterList
