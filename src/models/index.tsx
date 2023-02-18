@@ -53,3 +53,12 @@ export type DetailMovieAPIData = {
   vote_average: number;
   vote_count: number;
 };
+
+export type GenreAPIData = {
+  genres: Genre[];
+};
+
+export type Genre = {
+  id: number;
+  name: string;
+};

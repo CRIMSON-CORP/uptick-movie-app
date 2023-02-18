@@ -7,7 +7,7 @@ function VideoPlayer() {
   const imageUrl = `https://image.tmdb.org/t/p/original${state.backdrop_path}`;
   return (
     <div className="bg-[#24224e]">
-      <Container className="-translate-y-[10vh] flex flex-col gap-5">
+      <Container className="md:-translate-y-[10vh]md:pt-0 pt-10 flex flex-col gap-5">
         <div className="relative aspect-video w-full movie-card grid place-items-center isolate">
           <img
             src={imageUrl}

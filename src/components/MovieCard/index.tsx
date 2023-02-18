@@ -28,9 +28,11 @@ type AnimationWrapperProps = {
 
 function InfoSection({ header, detail }: InfoSectionProps) {
   return (
-    <div className="grid gap-3">
-      <h4 className="text-xs uppercase">{header}</h4>
-      <p className="text-xs uppercase font-extralight">{detail}</p>
+    <div className="grid md:gap-3 gap-1">
+      <h4 className="md:text-xs text-[10px] uppercase">{header}</h4>
+      <p className="md:text-xs text-[10px] uppercase font-extralight">
+        {detail || 'N/A'}
+      </p>
     </div>
   );
 }
@@ -109,18 +111,18 @@ function MovieCard({
   return (
     <article
       onClick={onClick}
-      className="movie-card flex flex-col justify-end group rounded"
+      className="movie-card flex flex-col justify-end group"
     >
       <img
         alt={title}
         src={imageUrl}
         className="absolute inset-0 w-full h-full object-cover object-center -z-10 group-hover:scale-105 duration-1000 ease-out"
       />
-      <section className="flex flex-col items-start gap-4 text-white p-[5%] z-10">
-        <h3 className="inline text-3xl font-light py-3 pr-3 border-b-2 border-white/20">
+      <section className="flex flex-col items-start gap-4 text-white p-[4%] z-10">
+        <h3 className="inline lg:text-3xl md:text-2xl text-lg whitespace-nowrap w-full overflow-hidden text-ellipsis font-light md:py-3 py-2 md:pr-3 border-b-2 border-white/20">
           {title}
         </h3>
-        <section className="flex w-full justify-between items-center gap-4">
+        <section className="flex w-full justify-between items-center md:gap-4 gap-2">
           <InfoSection header="release year" detail={releaseYear} />
           <InfoSection header="rating" detail={rating} />
           <InfoSection header="category" detail={category} />

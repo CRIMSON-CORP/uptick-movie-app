@@ -32,7 +32,7 @@ function HeroContent({ data }: { data: DetailMovieAPIData }) {
   const imageUrl = `https://image.tmdb.org/t/p/w500${posterPath}`;
 
   return (
-    <section className="flex justify-between items-start gap-10 text-white">
+    <section className="flex md:flex-row flex-col justify-between items-start gap-10 text-white">
       <div className="flex flex-col items-start gap-10">
         <div className="flex text-xs font-light gap-1">
           <Link to="/" className="uppercase white no-underline">
@@ -43,21 +43,21 @@ function HeroContent({ data }: { data: DetailMovieAPIData }) {
         <div className="flex flex-col items-start gap-5">
           <h1 className="text-6xl">{title}</h1>
           <div className="flex gap-2">
-            {data.genres.map(({ id, name }, index, array) => (
-              <p key={id} className="capitalize font-light">
+            {data.genres.map(({ id: _id, name }, index, array) => (
+              <p key={_id} className="capitalize font-light">
                 {name}
                 {!(index > array.length - 2) && ','}
               </p>
             ))}
           </div>
         </div>
-        <div className="flex items-center gap-20">
+        <div className="flex items-center md:gap-20 gap-8">
           <img
             alt={title}
             src={imageUrl}
-            className="h-40 aspect-[1/1.5] object-cover object-center"
+            className="h-48 aspect-[1/1.5] object-cover object-center"
           />
-          <div className="grid grid-cols-2 gap-16 max-w-xs">
+          <div className="grid grid-cols-2 md:gap-16 gap-10 max-w-xs">
             <InfoSection title="released" detail={parseInt(releaseDate, 10)} />
             <InfoSection title="category" detail={category} />
             <InfoSection title="rating" detail={voteAverage} />

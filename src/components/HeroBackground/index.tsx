@@ -6,12 +6,12 @@ function Rectangle() {
 
 function HeroBackground({ image, title }: { image: string; title: string }) {
   return (
-    <div className="absolute w-full h-screen overflow-hidden">
-      <div className="absolute w-full h-screen bg-[radial-gradient(52.63%_126.58%_at_55.04%_59.72%,rgba(48,79,130,0)_0%,rgba(39,61,102,0.45)_65.1%,#1F2C4D_100%)]" />
+    <div className="absolute w-full min-h-screen h-full overflow-hidden">
+      <div className="absolute w-full min-h-screen h-full bg-[radial-gradient(52.63%_126.58%_at_55.04%_59.72%,rgba(48,79,130,0)_0%,rgba(39,61,102,0.45)_65.1%,#1F2C4D_100%)]" />
       <img
         src={image}
         alt={title}
-        className="absolute w-full h-screen object-cover object-center mix-blend-multiply"
+        className="absolute w-full min-h-screen h-full object-cover object-center mix-blend-multiply"
       />
       <div className="absolute inset-0 w-full h-full">
         <Rectangle />

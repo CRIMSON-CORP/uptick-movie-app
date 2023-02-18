@@ -3,9 +3,9 @@ import HeroBackground from '@components/HeroBackground';
 
 function HeroContent() {
   return (
-    <div className="inset-0 text-white max-w-xl w-full flex flex-col gap-14">
-      <h1 className="text-7xl">Welcome!</h1>
-      <p className="leading-relaxed font-light">
+    <div className="inset-0 text-white max-w-xl w-full flex flex-col md:gap-14 gap-8">
+      <h1 className="md:text-7xl text-5xl">Welcome!</h1>
+      <p className="leading-relaxed font-light md:text-base text-sm">
         Thank you for visiting CRIM-SCAPE, a Web application built with React
         and Vite, used to search the Web for Various Intersting movies of varous
         genres, movies full of action across the years and across the Globe.
