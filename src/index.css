@@ -25,6 +25,10 @@
     @apply relative overflow-hidden aspect-video w-full bg-white/20 backdrop-blur border border-white/30 shadow-[0px_30px_50px_rgba(0,0,0,0.3)] isolate;
   }
 
+  .movie-card:has(img) {
+    @apply cursor-pointer;
+  }
+
   .movie-card:has(img)::before {
     @apply inset-0 absolute content-[""] pointer-events-none bg-[linear-gradient(to_bottom,transparent,#000000e8)];
   }

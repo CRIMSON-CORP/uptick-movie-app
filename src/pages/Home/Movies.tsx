@@ -44,7 +44,7 @@ function MovieList({ type }: { type: string }) {
 function Movies() {
   return (
     <div className="bg-[#24224e]">
-      <Container className="-translate-y-[30vh]">
+      <Container className="-translate-y-[30vh] flex flex-col gap-5">
         <MovieList type="movie" />
         <MovieList type="tv" />
       </Container>

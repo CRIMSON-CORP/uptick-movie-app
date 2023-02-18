@@ -9,7 +9,7 @@ function InfoSection({ header, detail }: InfoSectionProps) {
   return (
     <div className="grid gap-3">
       <h4 className="text-xs uppercase">{header}</h4>
-      <p className="text-xs uppercase">{detail}</p>
+      <p className="text-xs uppercase font-extralight">{detail}</p>
     </div>
   );
 }
@@ -23,14 +23,14 @@ function MovieCard({
 }: MovieCardProps) {
   const imageUrl = `https://image.tmdb.org/t/p/w500${image}`;
   return (
-    <article className="movie-card flex flex-col justify-end">
+    <article className="movie-card flex flex-col justify-end group rounded">
       <img
         alt={title}
         src={imageUrl}
-        className="absolute inset-0 w-full h-full object-cover object-center -z-10"
+        className="absolute inset-0 w-full h-full object-cover object-center -z-10 group-hover:scale-105 duration-1000 ease-out"
       />
       <section className="flex flex-col items-start gap-4 text-white p-[5%] z-10">
-        <h3 className="inline text-2xl py-3 border-b-2 border-white/20">
+        <h3 className="inline text-3xl font-light py-3 pr-3 border-b-2 border-white/20">
           {title}
         </h3>
         <section className="flex w-full justify-between items-center gap-4">
