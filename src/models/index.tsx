@@ -4,6 +4,7 @@ export type IconProps = {
 };
 
 export type MovieCardProps = {
+  id: number;
   image: string;
   title: string;
   releaseYear: string | number;
@@ -34,4 +35,21 @@ export type MovieAPIData = {
   vote_count: number;
   name: string;
   first_air_date: string;
+};
+
+export type DetailMovieAPIData = {
+  adult: false;
+  backdrop_path: string;
+  category: string;
+  genres: { id: number; name: string }[];
+  id: number;
+  overview: string;
+  popularity: number;
+  poster_path: string;
+  release_date: string;
+  tagline: string;
+  title: string;
+  video: false;
+  vote_average: number;
+  vote_count: number;
 };
