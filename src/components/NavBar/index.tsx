@@ -20,11 +20,9 @@ function SearchBar(): JSX.Element {
   const [searchText, setSearchText] = useState<string>('');
 
   const {
-    searchQuery,
     setSearchQuery,
     clearSearchPage,
     openSearchPage,
-    closeSearchPage,
     searchPageOpen,
     filterPageOpen,
   } = useSearchContext();
@@ -42,14 +40,19 @@ function SearchBar(): JSX.Element {
   const onChangeText = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       const { value } = e.target;
+      setSearchText(value);
       if (!value) {
-        closeSearchPage();
+        clearSearchPage();
       } else {
-        setSearchText(e.target.value);
-        debouncedSearch(e.target.value);
+        debouncedSearch(value);
       }
     },
-    [closeSearchPage, debouncedSearch]
+    [clearSearchPage, debouncedSearch]
+  );
+
+  const onBlur = useCallback(
+    () => !searchText && clearSearchPage(),
+    [searchText, clearSearchPage]
   );
 
   return (
@@ -57,14 +60,14 @@ function SearchBar(): JSX.Element {
       <div className="flex justify-between items-center gap-4 relative w-full max-w-xs">
         <input
           type="text"
+          onBlur={onBlur}
           value={searchText}
           onChange={onChangeText}
           onFocus={openSearchPage}
-          onBlur={closeSearchPage}
           placeholder="SEARCH CRIM-SCAPE"
           className="bg-transparent border-none outline-none uppercase text-white text-sm w-full font-sans placeholder:text-white"
         />
-        {searchQuery ? (
+        {searchText ? (
           <button
             type="button"
             onClick={clearSearchTextAndQuery}
@@ -78,8 +81,8 @@ function SearchBar(): JSX.Element {
         <span className="absolute bg-white w-full h-0.5 -bottom-3" />
       </div>
       <AnimatePresence>
-        {(searchQuery || searchPageOpen) && <SearchPage key="search" />}
-        {searchQuery && filterPageOpen && <FilterPage key="filter" />}
+        {(searchText || searchPageOpen) && <SearchPage key="search" />}
+        {searchText && filterPageOpen && <FilterPage key="filter" />}
       </AnimatePresence>
     </>
   );
@@ -89,7 +92,7 @@ function NavBar(): JSX.Element {
   return (
     <header className="fixed top-0 left-0 w-full z-20 pt-5 pb-2 border-b border-gray-100/30 isolate">
       <Container>
-        <div className="flex justify-between items-center gap-5">
+        <div className="flex justify-between items-center gap-10">
           <Logo />
           <SearchProvider>
             <SearchBar />

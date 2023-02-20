@@ -22,19 +22,24 @@
 
 @layer components {
   .movie-card {
-    @apply relative overflow-hidden aspect-video w-full bg-white/20 backdrop-blur border border-white/30 shadow-[0px_30px_50px_rgba(0,0,0,0.3)] isolate;
+    @apply relative overflow-hidden aspect-video w-full bg-white/20 backdrop-blur border border-white/10 shadow-[0px_30px_50px_rgba(0,0,0,0.3)] isolate;
   }
 
   .movie-card:has(img) {
     @apply cursor-pointer;
   }
 
+  .movie-card::before,
+  .movie-card::after {
+    @apply inset-0 absolute content-[""] pointer-events-none;
+  }
+
   .movie-card:has(img)::before {
-    @apply inset-0 absolute content-[""] pointer-events-none bg-[linear-gradient(to_bottom,transparent,#000000e8)];
+    @apply bg-[linear-gradient(to_bottom,transparent,#000000e8)];
   }
 
   .movie-card.skeleton::after {
-    @apply absolute inset-0 -translate-x-full;
+    @apply -translate-x-full;
     background-image: linear-gradient(
       90deg,
       rgba(255, 255, 255, 0) 0,
@@ -43,7 +48,10 @@
       rgba(255, 255, 255, 0)
     );
     animation: shimmer 2s infinite;
-    content: '';
+  }
+
+  .movie-card:has(img)::after {
+    @apply bg-[linear-gradient(to_bottom,transparent_75%,#29446f)] translate-x-0 animate-none;
   }
 
   .c-t-a {

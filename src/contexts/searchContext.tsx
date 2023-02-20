@@ -24,7 +24,6 @@ type SearchContextValues = {
   filtredSearchResult: MovieAPIData[];
   setFiltredSearchResult: React.Dispatch<React.SetStateAction<MovieAPIData[]>>;
   openSearchPage: () => void;
-  closeSearchPage: () => void;
   clearSearchPage: () => void;
   selectedGenreId: number;
   setSelectedGenreId: React.Dispatch<React.SetStateAction<number>>;
@@ -48,7 +47,6 @@ const SearchContext = createContext<SearchContextValues>({
   filtredSearchResult: [],
   setFiltredSearchResult: () => undefined,
   openSearchPage: () => undefined,
-  closeSearchPage: () => undefined,
   clearSearchPage: () => undefined,
   selectedGenreId: 0,
   setSelectedGenreId: () => undefined,
@@ -81,14 +79,13 @@ function SearchProvider({ children }: SearchProviderProps) {
   const { pathname } = useLocation();
 
   const openSearchPage = useCallback(() => setSearchPageOpen(true), []);
-  const closeSearchPage = useCallback(
-    () => setSearchPageOpen(!!searchQuery),
-    [searchQuery]
-  );
+
   const clearSearchPage = useCallback(() => {
     setSearchQuery('');
     setSearchPageOpen(false);
     setFilterPageOpen(false);
+    setSearchResult([]);
+    setFiltredSearchResult([]);
   }, []);
 
   const clearFilter = useCallback(() => {
@@ -177,7 +174,6 @@ function SearchProvider({ children }: SearchProviderProps) {
       setSearchLoading,
       filtredSearchResult,
       setFiltredSearchResult,
-      closeSearchPage,
       clearSearchPage,
       selectedGenreId,
       setSelectedGenreId,
@@ -194,7 +190,6 @@ function SearchProvider({ children }: SearchProviderProps) {
       searchLoading,
       openSearchPage,
       filtredSearchResult,
-      closeSearchPage,
       clearSearchPage,
       selectedGenreId,
       releaseYear,
