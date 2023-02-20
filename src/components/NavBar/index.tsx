@@ -89,8 +89,29 @@ function SearchBar(): JSX.Element {
 }
 
 function NavBar(): JSX.Element {
+  const [navBarScrolled, setNavBarScrolled] = useState(window.scrollY > 50);
+
+  useEffect(() => {
+    function toggleScrolled() {
+      setNavBarScrolled(window.scrollY > 50);
+    }
+
+    window.addEventListener('scroll', toggleScrolled);
+
+    return () => {
+      setNavBarScrolled(false);
+      window.removeEventListener('scroll', toggleScrolled);
+    };
+  }, []);
+
+  const headerClassNames = `${
+    navBarScrolled
+      ? 'bg-white/20 backdrop-blur-sm'
+      : 'bg-transparent backdrop-blur-none'
+  } fixed top-0 left-0 w-full z-20 pt-5 pb-2 border-b border-gray-100/30 isolate`;
+
   return (
-    <header className="fixed top-0 left-0 w-full z-20 pt-5 pb-2 border-b border-gray-100/30 isolate">
+    <header className={headerClassNames}>
       <Container>
         <div className="flex justify-between items-center gap-10">
           <Logo />
