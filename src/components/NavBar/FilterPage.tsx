@@ -1,8 +1,8 @@
-import { useState, useCallback } from 'react';
+import { useCallback } from 'react';
 import { motion } from 'framer-motion';
 import useFetch from 'src/hooks/useFetch';
-import { GenreAPIData, MovieAPIData } from 'src/models';
-import axios from 'src/lib/axios';
+import { GenreAPIData } from 'src/models';
+import { useSearchContext } from 'src/contexts/searchContext';
 import Container from '../Container';
 
 const fadeVariant = {
@@ -14,29 +14,10 @@ const fadeVariant = {
   },
 };
 
-type FilterPageProps = {
-  searchQuery: string;
-  searchResult: MovieAPIData[];
-  setSearchLoading: React.Dispatch<React.SetStateAction<boolean>>;
-  setFilterPageOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  setFiltredSearchResult: React.Dispatch<React.SetStateAction<MovieAPIData[]>>;
-};
+function GenreFilterList() {
+  const [data, , error] = useFetch<GenreAPIData>('genre/movie/list');
 
-type GenreFilterListProps = {
-  selectedGenreId: number;
-  setSelectedGenreId: React.Dispatch<React.SetStateAction<number>>;
-};
-
-type ReleaseYearProps = {
-  releaseYear: string;
-  setReleaseYear: React.Dispatch<React.SetStateAction<string>>;
-};
-
-function GenreFilterList({
-  selectedGenreId,
-  setSelectedGenreId,
-}: GenreFilterListProps) {
-  const [data] = useFetch<GenreAPIData>('genre/movie/list');
+  const { selectedGenreId, setSelectedGenreId } = useSearchContext();
 
   const onSelectGenre = useCallback(
     (id: number) => () => {
@@ -48,6 +29,7 @@ function GenreFilterList({
   return (
     <section>
       <h3>GENRE</h3>
+      {error && <p>Error loading Genres</p>}
       <div className="flex flex-wrap gap-4">
         {data?.genres?.map(({ id, name }) => (
           <button
@@ -64,11 +46,13 @@ function GenreFilterList({
           </button>
         ))}
       </div>
+      {data?.genres?.length === 0 && <p>No genres found</p>}
     </section>
   );
 }
 
-function ReleaseYear({ releaseYear, setReleaseYear }: ReleaseYearProps) {
+function ReleaseYear() {
+  const { releaseYear, setReleaseYear } = useSearchContext();
   return (
     <section>
       <h3>Release Year</h3>
@@ -82,60 +66,8 @@ function ReleaseYear({ releaseYear, setReleaseYear }: ReleaseYearProps) {
   );
 }
 
-function FilterPage({
-  searchQuery,
-  searchResult,
-  setSearchLoading,
-  setFilterPageOpen,
-  setFiltredSearchResult,
-}: FilterPageProps) {
-  const [selectedGenreId, setSelectedGenreId] = useState<number>(0);
-  const [releaseYear, setReleaseYear] = useState<string>('');
-
-  const applyFilter = useCallback(async () => {
-    if (selectedGenreId && !releaseYear) {
-      setFiltredSearchResult(() => {
-        return searchResult.filter((movie) =>
-          movie.genre_ids.includes(selectedGenreId)
-        );
-      });
-    } else {
-      try {
-        setSearchLoading(true);
-        const { data } = await axios.get(
-          `/search/movie?api_key=${
-            import.meta.env.VITE_API_KEY
-          }&query=${searchQuery}&year=${releaseYear}`
-        );
-        setFiltredSearchResult(
-          selectedGenreId
-            ? data?.results?.filter((movie: MovieAPIData) =>
-                movie.genre_ids.includes(selectedGenreId)
-              )
-            : data?.results
-        );
-      } catch (error) {
-        // eslint-disable-next-line no-console
-        console.log(error);
-      }
-    }
-    setSearchLoading(false);
-    setFilterPageOpen(false);
-  }, [
-    releaseYear,
-    searchQuery,
-    searchResult,
-    selectedGenreId,
-    setFilterPageOpen,
-    setFiltredSearchResult,
-    setSearchLoading,
-  ]);
-
-  const clearFilter = useCallback(() => {
-    setFilterPageOpen(false);
-    setSelectedGenreId(0);
-    setFiltredSearchResult(searchResult);
-  }, [searchResult, setFilterPageOpen, setFiltredSearchResult]);
+function FilterPage() {
+  const { applyFilter, clearFilter } = useSearchContext();
 
   return (
     <motion.div
@@ -149,14 +81,8 @@ function FilterPage({
         <div className="flex flex-col gap-12 justify-between items-center h-full">
           <h2 className="text-5xl">Filter Results</h2>
           <section className="flex flex-col gap-12">
-            <GenreFilterList
-              selectedGenreId={selectedGenreId}
-              setSelectedGenreId={setSelectedGenreId}
-            />
-            <ReleaseYear
-              releaseYear={releaseYear}
-              setReleaseYear={setReleaseYear}
-            />
+            <GenreFilterList />
+            <ReleaseYear />
           </section>
           <section className="flex flex-col items-center gap-4">
             <button
