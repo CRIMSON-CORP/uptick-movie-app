@@ -1,6 +1,6 @@
 function Rectangle() {
   return (
-    <div className="absolute left-1/4 bg-[rgba(255,255,255,0.1)] rotate-[40deg] h-[200vh] w-[40vw] -translate-y-1/4 last:-translate-x-[30%]" />
+    <div className="absolute md:left-1/4 left-[15%] bg-[rgba(255,255,255,0.1)] md:rotate-[40deg] rotate-[20deg] h-[200vh] md:w-[40vw] w-[80vw] -translate-y-1/4 last:-translate-x-[30%]" />
   );
 }
 
@@ -11,7 +11,7 @@ function HeroBackground({ image, title }: { image: string; title: string }) {
       <img
         src={image}
         alt={title}
-        className="absolute w-full min-h-screen h-full object-cover object-center mix-blend-multiply"
+        className="absolute w-full min-h-screen h-full object-cover md:object-center object-[65%_50%] mix-blend-multiply"
       />
       <div className="absolute inset-0 w-full h-full">
         <Rectangle />

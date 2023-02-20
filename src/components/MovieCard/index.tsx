@@ -119,7 +119,7 @@ function MovieCard({
         className="absolute inset-0 w-full h-full object-cover object-center -z-10 group-hover:scale-105 duration-1000 ease-out"
       />
       <section className="flex flex-col items-start sm:gap-4 gap-2 text-white p-[4%] z-10">
-        <h3 className="inline lg:text-3xl md:text-2xl text-lg whitespace-nowrap overflow-hidden text-ellipsis font-light md:py-3 sm:py-2 md:pr-3 border-b-2 border-white/20">
+        <h3 className="inline max-w-full lg:text-3xl md:text-2xl text-lg whitespace-nowrap overflow-hidden text-ellipsis font-light md:py-3 sm:py-2 md:pr-3 border-b-2 border-white/20">
           {title}
         </h3>
         <section className="flex w-full justify-between items-center md:gap-4 gap-2">

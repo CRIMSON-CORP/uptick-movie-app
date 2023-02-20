@@ -41,7 +41,7 @@ function HeroContent({ data }: { data: DetailMovieAPIData }) {
           /<p className="uppercase">{title}</p>
         </div>
         <div className="flex flex-col items-start gap-5">
-          <h1 className="text-6xl">{title}</h1>
+          <h1 className="md:text-6xl text-5xl">{title}</h1>
           <div className="flex gap-2">
             {data.genres.map(({ id: _id, name }, index, array) => (
               <p key={_id} className="capitalize font-light">
