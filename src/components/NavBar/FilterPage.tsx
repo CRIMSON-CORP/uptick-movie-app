@@ -27,26 +27,28 @@ function GenreFilterList() {
   );
 
   return (
-    <section>
-      <h3>GENRE</h3>
-      {error && <p>Error loading Genres</p>}
-      <div className="flex flex-wrap gap-4">
-        {data?.genres?.map(({ id, name }) => (
-          <button
-            key={id}
-            type="button"
-            onClick={onSelectGenre(id)}
-            className={`${
-              selectedGenreId === id
-                ? 'bg-white text-black'
-                : 'text-white bg-transparent '
-            } border-2 border-white shadow-md rounded-full py-1.5 px-6 text-xs font-medium capitalize tracking-wide`}
-          >
-            {name}
-          </button>
-        ))}
+    <section className="flex-grow">
+      <h3 className="mb-2">GENRE</h3>
+      <div className="max-w-md">
+        {error && <p>Error loading Genres</p>}
+        <div className="grid md:grid-cols-4 grid-cols-3 gap-3">
+          {data?.genres?.map(({ id, name }) => (
+            <button
+              key={id}
+              type="button"
+              onClick={onSelectGenre(id)}
+              className={`${
+                selectedGenreId === id
+                  ? 'bg-white text-black'
+                  : 'text-white bg-transparent '
+              } w-full border-2 whitespace-nowrap overflow-hidden text-ellipsis border-white shadow-md rounded-full py-1.5 px-2 grid place-items-center text-xs font-medium capitalize tracking-wide`}
+            >
+              {name}
+            </button>
+          ))}
+        </div>
+        {data?.genres?.length === 0 && <p>No genres found</p>}
       </div>
-      {data?.genres?.length === 0 && <p>No genres found</p>}
     </section>
   );
 }
@@ -54,8 +56,8 @@ function GenreFilterList() {
 function ReleaseYear() {
   const { releaseYear, setReleaseYear } = useSearchContext();
   return (
-    <section>
-      <h3>Release Year</h3>
+    <section className="flex-grow">
+      <h3 className="mb-2">Release Year</h3>
       <input
         type="text"
         value={releaseYear}
@@ -75,12 +77,12 @@ function FilterPage() {
       animate="show"
       initial="hidden"
       variants={fadeVariant}
-      className="bg-[#24224e]/60 backdrop-blur-sm fixed inset-0 w-full h-full pt-[20vh] pb-[10vh] -z-10 text-white overflow-y-scroll"
+      className="search-page bg-[#24224e]/60 backdrop-blur-sm fixed min-h-screen inset-0 w-full pt-[10vh] pb-[10vh] -z-10 text-white overflow-y-auto"
     >
       <Container className="h-full">
-        <div className="flex flex-col gap-12 justify-between items-center h-full">
-          <h2 className="text-5xl">Filter Results</h2>
-          <section className="flex flex-col gap-12">
+        <div className="flex flex-col md:gap-12 gap-4 h-full">
+          <h2 className="text-2xl">Filter results</h2>
+          <section className="flex md:flex-row flex-col gap-7">
             <GenreFilterList />
             <ReleaseYear />
           </section>
@@ -95,7 +97,7 @@ function FilterPage() {
             <button
               type="button"
               onClick={clearFilter}
-              className="text-white bg-transparent border-2 border-white shadow-md rounded-full py-3 px-8 font-medium capitalize tracking-wide"
+              className="underline py-3 px-8 font-medium capitalize tracking-wide"
             >
               clear filter
             </button>
