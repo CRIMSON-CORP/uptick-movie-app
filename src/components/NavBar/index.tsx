@@ -1,5 +1,6 @@
 import { AnimatePresence } from 'framer-motion';
-import { useCallback, useState } from 'react';
+import { useCallback, useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import SearchProvider, { useSearchContext } from 'src/contexts/searchContext';
 import { useDebouncedCallback } from 'use-debounce';
 import Container from '../Container';
@@ -18,6 +19,8 @@ function Logo(): JSX.Element {
 
 function SearchBar(): JSX.Element {
   const [searchText, setSearchText] = useState<string>('');
+
+  const { state } = useLocation();
 
   const {
     setSearchQuery,
@@ -54,6 +57,10 @@ function SearchBar(): JSX.Element {
     () => !searchText && clearSearchPage(),
     [searchText, clearSearchPage]
   );
+
+  // remove searchText when location state changes(user clicked a movie in search page)
+  // so search page goes away
+  useEffect(() => setSearchText(''), [state]);
 
   return (
     <>

@@ -76,7 +76,7 @@ function SearchProvider({ children }: SearchProviderProps) {
   const [selectedGenreId, setSelectedGenreId] = useState<number>(0);
   const [releaseYear, setReleaseYear] = useState<string>('');
 
-  const { pathname } = useLocation();
+  const { state } = useLocation();
 
   const openSearchPage = useCallback(() => setSearchPageOpen(true), []);
 
@@ -86,6 +86,8 @@ function SearchProvider({ children }: SearchProviderProps) {
     setFilterPageOpen(false);
     setSearchResult([]);
     setFiltredSearchResult([]);
+    setSelectedGenreId(0);
+    setReleaseYear('');
   }, []);
 
   const clearFilter = useCallback(() => {
@@ -155,9 +157,8 @@ function SearchProvider({ children }: SearchProviderProps) {
   }, [searchQuery]);
 
   useEffect(() => {
-    setFilterPageOpen(false);
-    setSearchPageOpen(false);
-  }, [pathname]);
+    clearSearchPage();
+  }, [clearSearchPage, state]);
 
   const contextValues: SearchContextValues = useMemo(
     () => ({
