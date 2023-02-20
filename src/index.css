@@ -22,7 +22,7 @@
 
 @layer components {
   .movie-card {
-    @apply relative overflow-hidden aspect-video w-full bg-white/20 backdrop-blur border border-white/10 shadow-[0px_30px_50px_rgba(0,0,0,0.3)] isolate;
+    @apply relative overflow-hidden md:aspect-video aspect-[3/4] w-full bg-white/20 backdrop-blur border border-white/10 shadow-[0px_30px_50px_rgba(0,0,0,0.3)] isolate;
   }
 
   .movie-card:has(img) {
@@ -35,7 +35,7 @@
   }
 
   .movie-card:has(img)::before {
-    @apply bg-[linear-gradient(to_bottom,transparent,#000000e8)];
+    @apply bg-[linear-gradient(to_bottom,transparent_35%,#000000e8)];
   }
 
   .movie-card.skeleton::after {
@@ -51,7 +51,7 @@
   }
 
   .movie-card:has(img)::after {
-    @apply bg-[linear-gradient(to_bottom,transparent_75%,#29446f)] translate-x-0 animate-none;
+    @apply md:bg-[radial-gradient(#364d72_0%,#00000000_60%)] bg-[linear-gradient(to_bottom,transparent_65%,#29446f)] left-1/2 -translate-x-1/2 md:top-[60%] h-full w-[170%] animate-none;
   }
 
   .c-t-a {

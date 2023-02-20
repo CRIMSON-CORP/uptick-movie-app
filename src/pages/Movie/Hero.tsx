@@ -12,8 +12,8 @@ type InfoSectionProps = {
 function InfoSection({ title, detail }: InfoSectionProps) {
   return (
     <section className="flex flex-col gap-2">
-      <h4 className="uppercase text-xs">{title}</h4>
-      <p className="uppercase font-extralight">{detail}</p>
+      <h4 className="uppercase text-[10px]">{title}</h4>
+      <p className="uppercase font-light text-lg">{detail}</p>
     </section>
   );
 }
@@ -69,7 +69,7 @@ function HeroContent({ data }: { data: DetailMovieAPIData }) {
           <p className="mt-1">save to list</p>
         </button>
       </div>
-      <div className="movie-details flex flex-col gap-16 md:max-w-xs w-full">
+      <div className="movie-details flex flex-col gap-16 md:max-w-sm w-full">
         <div className="flex flex-col gap-5">
           <h3 className="uppercase">tagline</h3>
           <p className="font-light">{tagline}</p>

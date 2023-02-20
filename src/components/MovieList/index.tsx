@@ -6,7 +6,7 @@ import MovieLoading from '../MovieLoading';
 function MovieList({ url, urlParams }: { url: string; urlParams?: any }) {
   const [data, loading] = useFetch<MovieAPIResponse>(url, urlParams);
   return (
-    <section className="grid md:grid-cols-2 grid-cols-1 gap-5">
+    <section className="grid md:grid-cols-2 grid-cols-1 gap-8">
       {loading ? (
         <MovieLoading />
       ) : (

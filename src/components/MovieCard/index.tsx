@@ -28,9 +28,9 @@ type AnimationWrapperProps = {
 
 function InfoSection({ header, detail }: InfoSectionProps) {
   return (
-    <div className="grid md:gap-3 gap-1">
-      <h4 className="md:text-xs text-[10px] uppercase">{header}</h4>
-      <p className="md:text-xs text-[10px] uppercase font-extralight">
+    <div className="grid md:gap-3 gap-2">
+      <h4 className="md:text-xs text-[9px] uppercase">{header}</h4>
+      <p className="md:text-base text-sm uppercase font-light">
         {detail || 'N/A'}
       </p>
     </div>
@@ -118,12 +118,12 @@ function MovieCard({
         src={imageUrl}
         className="absolute inset-0 w-full h-full object-cover object-center -z-10 group-hover:scale-105 duration-1000 ease-out"
       />
-      <section className="flex flex-col items-start sm:gap-4 gap-2 text-white p-[4%] z-10">
-        <h3 className="inline max-w-full lg:text-3xl md:text-2xl text-lg whitespace-nowrap overflow-hidden text-ellipsis font-light md:py-3 sm:py-2 md:pr-3 border-b-2 border-white/20">
+      <section className="flex flex-col items-start gap-4 text-white md:p-[4%] p-5 z-10">
+        <h3 className="inline max-w-full lg:text-4xl text-3xl font-light">
           {title}
         </h3>
-        <section className="flex w-full justify-between items-center md:gap-4 gap-2">
-          <InfoSection header="release year" detail={releaseYear} />
+        <section className="flex items-center md:gap-16 gap-12 border-t-2 border-white/20 pt-4">
+          <InfoSection header="released" detail={releaseYear} />
           <InfoSection header="rating" detail={rating} />
           <InfoSection header="category" detail={category} />
         </section>
